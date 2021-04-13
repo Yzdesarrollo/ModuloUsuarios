@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    string nombre = "Bienvenido";
+}
+
+<h1>@nombre a @ViewData["Title"]</h1>
+
+@model ModuloUsuarios.Models.Entities.Auto
+
+<h2>@Model.Marca</h2>
+<h3>@Model.Color</h3>
+<h4>@Model.Precio</h4>

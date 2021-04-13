@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ModuloUsuarios.Models.Entities.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Módulo Usuarios</h1>
+
+<p>
+    <a asp-action="CrearUsuario"><i class="fas fa-plus"></i> Crear Nuevo usuario</a>
+</p>
+
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>@TempData["Mensaje"]</strong>
+    </div>
+}
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Correo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contrasena)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rol)
+                </th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var Activo = string.Empty;
+
+                if (item.Estado == true)
+                {
+                    Activo = "table-danger";
+
+                }
+                <tr class="@Activo">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Correo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contrasena)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rol.Nombre)
+                    </td>
+                    <td>
+                        <a asp-action="EditarUsuario" asp-route-id="@item.UsuarioId" class="btn btn-info">Editar</a>
+                        <a asp-action="DetalleUsuario" asp-route-id="@item.UsuarioId" class="btn btn-warning">Detalle</a>
+                        <a asp-action="EliminarUsuario" asp-route-id="@item.UsuarioId" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+else
+{
+    <span class="text-danger">No Existen registros</span>
+}
+
+<p>
+    <a asp-action="CrearRoles" asp-controller="Roles"><i class="fas fa-user-tag"></i> Crear Nuevo Rol</a>
+</p>
